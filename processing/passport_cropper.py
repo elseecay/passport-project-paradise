@@ -31,7 +31,7 @@ def crop_passport(image, start_x, start_y, end_x, end_y):
     return img
 
 
-def crop_passport_down(path):
+def crop_passport_up(path):
     coors, width, height, image = find_face(path)
 
     start_x = coors["x0"]
@@ -48,22 +48,17 @@ def crop_passport_down(path):
     return crop_passport(image, start_x, start_y, end_x, end_y)
 
 
-def crop_passport_up(path):
+def crop_passport_down(path):
     coors, width, height, image = find_face(path)
 
-    start_x = coors["x0"]
+    start_x = coors["x1"]
     start_y = coors["y0"]
-
     end_x = coors["x1"]
-    end_y = coors["y0"]
+    end_y = coors["y1"]
 
-    start_y += int(height * 2.5)
-    end_y += int(height * 4)
+    start_y -= int(height * 1.8)
+    end_y += int(height)
 
     end_x += width * 6
 
     return crop_passport(image, start_x, start_y, end_x, end_y)
-
-
-
-
