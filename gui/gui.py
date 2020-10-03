@@ -7,6 +7,7 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.core.window import Window
+from kivy.clock import Clock
 import time
 import glob
 from processing import passport_cropper as pc
@@ -78,6 +79,12 @@ class CameraClick(BoxLayout):
         super().__init__()
         self.was_recognize = False
         self.recognizer = recognizer
+        self.interval = 1.0
+        self.event = Clock.schedule_interval(self.check_passport, self.interval)
+
+    def check_passport(self, dt):
+        pass
+        # Clock.unschedule(self.event)
 
     def capture(self):
         camera = self.ids['camera']
