@@ -9,11 +9,11 @@ def get_webcam_image():
 
 
 def is_passport(img):
-    pass
+    return True
 
 
 def recognition(img):
-    pass
+    return {'data': 1}
 
 
 def json_to_mem(mem: memoryview, data):
