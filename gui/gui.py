@@ -50,15 +50,9 @@ Builder.load_string('''
                     font_size: '18sp'
                     height: '36dp'
                 Label:
-                    text: 'Кем и когда выдан'
+                    text: 'Дата рождения'
                 TextInput:
-                    id: date_place_issued
-                    font_size: '18sp'
-                    height: '36dp'
-                Label:
-                    text: 'Код подразделения'
-                TextInput:
-                    id: department_code
+                    id: birthdate
                     font_size: '18sp'
                     height: '36dp'
         # ToggleButton:
@@ -86,16 +80,19 @@ class CameraClick(BoxLayout):
         self.recognizer = recognizer
 
     def capture(self):
-        # img = pc.crop_passport_down('kek2.jpg')
         camera = self.ids['camera']
-        self.ids['series'].text = '05 17 472413'
-        self.ids['fio'].text = 'Гусаров Владислав Евгеньевич'
-        self.ids['gender'].text = 'Муж.'
-        self.ids['birth_place'].text = 'г. Ташкент'
-        self.ids['date_place_issued'].text = 'Отделением УМФС'
-        self.ids['department_code'].text = '530-100'
         filename = "IMG_{}.png".format(time.strftime("%Y%m%d_%H%M%S"))
         camera.export_to_png(filename)
+
+        img = pc.crop_passport_down(filename)
+
+        self.recognizer.recognize(img)
+
+        self.ids['series'].text = self.recognizer.series + self.recognizer.number
+        self.ids['fio'].text = self.recognizer.second_name + ' ' + self.recognizer.name + ' ' + self.recognizer.middle_name
+        self.ids['gender'].text = self.recognizer.sex
+        self.ids['birth_place'].text = self.recognizer.place_of_birth
+        self.ids['birthdate'].text = self.recognizer.birthday
         self.was_recognize = True
 
     def save(self):

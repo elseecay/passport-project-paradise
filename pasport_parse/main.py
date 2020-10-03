@@ -1,8 +1,8 @@
 from PIL import Image
 import field_recognize as fr
 
-FR = fr.field_recognizer()
-image_path = "image_test.jpg"
+FR = fr.FieldRecognizer()
+image_path = "kek2.jpg"
 image = Image.open(image_path)
 FR.recognize(image)
 print("Series: ", FR.series)
