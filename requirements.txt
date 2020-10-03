@@ -7,3 +7,5 @@ pypiwin32
 kivy.deps.sdl2
 kivy.deps.glew
 PyInstaller
+pywin32
+face_recognition
