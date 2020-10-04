@@ -1,6 +1,6 @@
-scikit-image==0.14.2
-scipy==1.1.0
-Kivy==1.11.1
+scikit-image
+scipy
+wheel
 docutils
 pygments
 pypiwin32
@@ -9,3 +9,5 @@ kivy.deps.glew
 PyInstaller
 pywin32
 face_recognition
+opencv-python
+pytesseract

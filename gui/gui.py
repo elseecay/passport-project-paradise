@@ -3,18 +3,18 @@
 # pip install PyInstaller
 # python -m PyInstaller --name [exe-name] [path_to_python_file]
 
-from kivy.app import App
-from kivy.lang import Builder
-from kivy.uix.boxlayout import BoxLayout
-from kivy.core.window import Window
-from kivy.clock import Clock
-import time
-import glob
-from processing import passport_cropper as pc
+# from kivy.app import App
+# from kivy.lang import Builder
+# from kivy.uix.boxlayout import BoxLayout
+# from kivy.core.window import Window
+# from kivy.clock import Clock
+# import time
+# import glob
+# from processing import passport_cropper as pc
 
 import multiprocessing.shared_memory
 import win32event
-import json
+# import json
 
 
 MEM_NAME = 'pppmem'
@@ -33,10 +33,10 @@ try:
 except Exception as e:
     print('Exception', e)
     if 'MEM' in globals():
-        MEM.unlink()
+        MEM.close()
     if 'PASSPORT_EVENT' in globals():
         PASSPORT_EVENT.close()
-    if 'RECOGNIZED_EVENT' in globals():
+    if 'RECOGNITION_EVENT' in globals():
         RECOGNITION_EVENT.close()
     if 'RESULT_TAKEN_EVENT' in globals():
         RESULT_TAKEN_EVENT.close()
@@ -136,7 +136,7 @@ with SafeExecutionPack(MEM, PASSPORT_EVENT, RECOGNITION_EVENT, RESULT_TAKEN_EVEN
             self.event = Clock.schedule_interval(self.check_passport, self.interval)
 
         def check_passport(self, dt):
-            w = win32event.WaitForSingleObject(RECOGNITION_EVENT, 10000)
+            w = win32event.WaitForSingleObject(RECOGNITION_EVENT, 200)
             if w == win32event.WAIT_TIMEOUT:
                 return
             js = read_json(MEM_BUF)

@@ -7,6 +7,10 @@ import face_recognition
 from PIL import Image
 
 
+def check_face(path):
+    return len(face_recognition.face_locations(face_recognition.load_image_file(path))) > 0
+
+
 def find_face(path):
     image = face_recognition.load_image_file(path)
     face = face_recognition.face_locations(image)[0]

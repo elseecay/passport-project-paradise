@@ -7,7 +7,9 @@ from pasport_parse import field_recognize as fr
 
 def get_webcam_image():
     camera_device = cv2.VideoCapture(0)
+    print('Cam device', camera_device)
     _, img = camera_device.read()
+    print('Image', img)
     return img
 
 
@@ -19,6 +21,9 @@ RECOGNIZER = fr.FieldRecognizer()
 
 
 def recognition(img):
+    cv2.imwrite('webcam.jpg', img)
+    print('image size', img.shape)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     img = Image.fromarray(img)
     RECOGNIZER.recognize(img)
     return {
